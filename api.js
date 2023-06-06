@@ -1,4 +1,5 @@
 const login = require('./modules/login');
+const getPoint = require('./modules/getPoint');
 module.exports = [
   {
     path: '/',
@@ -32,5 +33,10 @@ module.exports = [
     path: '/login',
     method: 'post',
     handler: login,
+  },
+  {
+    path: '/getPoint',
+    method: 'post',
+    handler: getPoint,
   },
 ]

@@ -1,9 +1,6 @@
+const getBody = require('../error/getBody');
 const login = (req, res) => {
-  if (!req.body || !req.body.username || !req.body.password) {
-    res.status(400).json({ error: 'Username or password is missing' });
-    return;
-  }
-
+  getBody(req, ['username', 'password']);
   const { username, password } = req.body;
 
   // Check if the username and password are valid

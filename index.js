@@ -8,6 +8,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// token验证
+// 方法一：使用express-jwt
 
 app.use(cors())
 
