@@ -1,0 +1,36 @@
+const login = require('./modules/login');
+module.exports = [
+  {
+    path: '/',
+    method: 'get',
+    handler: (req, res) => {
+      res.send('Home Page Route')
+    }
+  },
+  {
+    path: '/about',
+    method: 'get',
+    handler: (req, res) => {
+      res.send('about Page Route')
+    }
+  },
+  {
+    path: '/portfolio',
+    method: 'get',
+    handler: (req, res) => {
+      res.send('portfolio Page Route')
+    }
+  },
+  {
+    path: '/contact',
+    method: 'get',
+    handler: (req, res) => {
+      res.send('contact Page Route')
+    }
+  },
+  {
+    path: '/login',
+    method: 'post',
+    handler: login,
+  },
+]

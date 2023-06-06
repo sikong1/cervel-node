@@ -1,34 +1,23 @@
 const express = require('express');
+const cors = require('cors')
+const api = require('./api');
 
 const app = express();
 
-const origin = (res) => {
-  // 解决跨域问题
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-}
+// 解决获取不到post请求的body
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.send('Home Page Route')
-  origin(res)
+
+app.use(cors())
+
+
+api.forEach((route) => {
+  app[route.method](route.path, (req, res) => {
+    route.handler(req, res);
+  });
 });
 
-app.get('/about', (req, res) => {
-  res.send('About Page Route')
-  origin(res)
-});
-
-app.get('/portfolio', (req, res) => {
-  res.send('Portfolio Page Route')
-  origin(res)
-});
-
-app.get('/contact', (req, res) => {
-  res.send('Contact Page Route')
-  origin(res)
-});
-
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.listen(port, () => console.log(`Server running on ${port}, http://localhost:${port}`));
