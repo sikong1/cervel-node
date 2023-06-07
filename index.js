@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors')
 const api = require('./api');
+var { expressjwt: jwt } = require("express-jwt");
+const keyObj = require('./key');
 
 const app = express();
 
@@ -8,12 +10,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// token验证
-// 方法一：使用express-jwt
+// token是否过期
+app.use(jwt({
+  secret: keyObj.myKey,
+  algorithms: ['HS256']
+}).unless({
+  path: ['/login', '/newToken']
+}));
 
+// 解决跨域
 app.use(cors())
 
-
+// 路由
 api.forEach((route) => {
   app[route.method](route.path, (req, res) => {
     route.handler(req, res);

@@ -1,4 +1,4 @@
-const isBody = (req, array) => {
+const isBody = (req, array, res) => {
   array.forEach(item => {
     if (!req.body || !req.body[item]) {
       const itemStr = array.join(' or ');

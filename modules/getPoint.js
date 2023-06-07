@@ -1,5 +1,4 @@
 // const getBody = require('../error/getBody');
-// const mammoth = require('mammoth');
 const point = require('../data/point');
 
 const getHtml = (req, res) => {

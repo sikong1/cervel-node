@@ -1,5 +1,6 @@
 const login = require('./modules/login');
 const getPoint = require('./modules/getPoint');
+const newToken = require('./modules/newToken');
 module.exports = [
   {
     path: '/',
@@ -38,5 +39,10 @@ module.exports = [
     path: '/getPoint',
     method: 'post',
     handler: getPoint,
+  },
+  {
+    path: '/newToken',
+    method: 'get',
+    handler: newToken,
   },
 ]
