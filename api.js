@@ -34,6 +34,7 @@ module.exports = [
   {
     path: '/login',
     method: 'post',
+    errorBody:  ['username', 'password'],
     handler: login,
   },
   {
@@ -54,6 +55,7 @@ module.exports = [
   {
     path: '/code/check',
     method: 'post',
+    errorBody:  ['captchaType', 'pointJson'],
     handler: getCodeObj.postCodeCheck,
   },
 ]

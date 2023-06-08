@@ -3,6 +3,7 @@ const cors = require('cors')
 const api = require('./api');
 var { expressjwt: jwt } = require("express-jwt");
 const keyObj = require('./key');
+const getBody = require('./error/getBody');
 
 const app = express();
 
@@ -24,6 +25,9 @@ app.use(cors())
 // 路由
 api.forEach((route) => {
   app[route.method](route.path, (req, res) => {
+    // 判断参数是否存在
+    route.errorBody && getBody(req, route.errorBody, res);
+
     route.handler(req, res);
   });
 });

@@ -19,9 +19,7 @@ const getCode = (req, res) => {
 
 // 选择验证方式，‘’为点选，blockPuzzle：为拖动
 const postCodeCheck = (req, res) => {
-  getBody(req, ['captchaType', 'pointJson'], res);
   const { captchaType, pointJson } = req.body;
-  console.log(captchaType,'captchaTypecaptchaTypecaptchaType');
   if (captchaType === 'blockPuzzle') {
     res.send({
       code: 0,
