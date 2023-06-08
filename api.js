@@ -1,6 +1,7 @@
 const login = require('./modules/login');
 const getPoint = require('./modules/getPoint');
 const newToken = require('./modules/newToken');
+const getCodeObj = require('./modules/getcode');
 module.exports = [
   {
     path: '/',
@@ -44,5 +45,15 @@ module.exports = [
     path: '/newToken',
     method: 'get',
     handler: newToken,
+  },
+  {
+    path: '/code',
+    method: 'get',
+    handler: getCodeObj.getCode,
+  },
+  {
+    path: '/code/check',
+    method: 'post',
+    handler: getCodeObj.postCodeCheck,
   },
 ]

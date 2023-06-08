@@ -15,7 +15,7 @@ app.use(jwt({
   secret: keyObj.myKey,
   algorithms: ['HS256']
 }).unless({
-  path: ['/login', '/newToken']
+  path: ['/login', '/code', '/code/check', '/newToken']
 }));
 
 // 解决跨域
