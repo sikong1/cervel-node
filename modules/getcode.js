@@ -2,23 +2,34 @@
  * @Author: sikonggpw 1327325804@qq.com
  * @Date: 2023-06-08 09:33:41
  * @LastEditors: sikonggpw 1327325804@qq.com
- * @LastEditTime: 2023-07-07 12:03:08
+ * @LastEditTime: 2023-07-07 20:58:16
  * @FilePath: \vercel-node-app\modules\getcode.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-const repData = require('../data/repData');
+// const repData = require('../data/repData');
 const repDataClick = require('../data/repDataClick');
 const { aesDecrypt, generateRandomString, isMatch, isInterior, getClickData, successData, errorData } = require('../utils/crypot');
 const { LoginEnum } = require('../enum');
+const { findDatabase } = require('../lib/mongo');
+const { collectionConfig } = require('../lib/mongo/enum');
 
 
 let codeKey = null
-const getCode = (req, res) => {
+let repData = null
+const getCode = async (req, res) => {
   // 获取当前验证类型
   const { captchaType } = req.query;
   switch (captchaType) {
     case LoginEnum.blockPuzzle.name:
-      send(res, repData);
+      // 连接数据库
+      const collection = await findDatabase({ tableName: collectionConfig.code.name }); // 连接数据库
+      let apos = await collection.find({}).toArray(); // 查询所有数据
+      if (apos.length > 0) {
+        const random = Math.floor(Math.random() * apos.length);
+        repData = apos[random];
+        repData.num = 0
+        send(res, repData);
+      }
       break;
     case LoginEnum.clickWord.name:
       send(res, repDataClick);
