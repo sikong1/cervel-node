@@ -2,7 +2,7 @@
  * @Author: sikonggpw 1327325804@qq.com
  * @Date: 2023-06-08 09:33:41
  * @LastEditors: sikonggpw 1327325804@qq.com
- * @LastEditTime: 2023-07-04 15:49:32
+ * @LastEditTime: 2023-07-07 12:03:08
  * @FilePath: \vercel-node-app\modules\getcode.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -56,7 +56,6 @@ const postCodeCheck = (req, res) => {
   let isPointJson = true;
   // 解密
   let pointJsonStr = aesDecrypt(pointJson, codeKey);
-  console.log(pointJsonStr, 'pointJsonStrpointJsonStr');
   switch (captchaType) {
     case LoginEnum.blockPuzzle.name:
       // 验证
