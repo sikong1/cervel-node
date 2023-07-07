@@ -2,7 +2,7 @@
  * @Author: sikonggpw 1327325804@qq.com
  * @Date: 2023-06-30 11:53:25
  * @LastEditors: sikonggpw 1327325804@qq.com
- * @LastEditTime: 2023-07-04 15:52:29
+ * @LastEditTime: 2023-07-07 21:12:08
  * @FilePath: \vercel-node-app\utils\crypot.js
  * @Description: 加解密
 */
@@ -30,8 +30,7 @@ function generateRandomString(length) {
 }
 
 // 验证前端滑块是否匹配
-const isMatch = (repData, pointJsonStr) => {
-    const num = repData.num;
+const isMatch = (num, pointJsonStr) => {
     const currentNum = Math.round(Number(pointJsonStr.split(':')[1].split(',')[0]))
     if (num + 5 >= currentNum && currentNum >= num - 5) {
         return true

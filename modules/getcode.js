@@ -2,7 +2,7 @@
  * @Author: sikonggpw 1327325804@qq.com
  * @Date: 2023-06-08 09:33:41
  * @LastEditors: sikonggpw 1327325804@qq.com
- * @LastEditTime: 2023-07-07 20:58:16
+ * @LastEditTime: 2023-07-07 21:16:22
  * @FilePath: \vercel-node-app\modules\getcode.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,26 +16,35 @@ const { collectionConfig } = require('../lib/mongo/enum');
 
 let codeKey = null
 let repData = null
+const dataObj = {
+
+}
 const getCode = async (req, res) => {
   // 获取当前验证类型
   const { captchaType } = req.query;
   switch (captchaType) {
     case LoginEnum.blockPuzzle.name:
       // 连接数据库
-      const collection = await findDatabase({ tableName: collectionConfig.code.name }); // 连接数据库
-      let apos = await collection.find({}).toArray(); // 查询所有数据
-      if (apos.length > 0) {
-        const random = Math.floor(Math.random() * apos.length);
-        repData = apos[random];
-        repData.num = 0
-        send(res, repData);
-      }
+      await joinDatabase(res, collectionConfig.code.name);
       break;
     case LoginEnum.clickWord.name:
-      send(res, repDataClick);
+      // send(res, repDataClick);
+      joinDatabase(res, collectionConfig.code_check.name)
       break;
     default:
       res.send(errorData);
+  }
+}
+
+const joinDatabase = async (res, tableName) => {
+  const collection = await findDatabase({ tableName }); // 连接数据库
+  let apos = await collection.find({}).toArray(); // 查询所有数据
+  if (apos.length > 0) {
+    const random = Math.floor(Math.random() * apos.length);
+    repData = apos[random];
+    dataObj.num = repData.num;
+    repData.num = 0
+    send(res, repData);
   }
 }
 
@@ -70,7 +79,7 @@ const postCodeCheck = (req, res) => {
   switch (captchaType) {
     case LoginEnum.blockPuzzle.name:
       // 验证
-      isPointJson = isMatch(repData, pointJsonStr);
+      isPointJson = isMatch(dataObj.num, pointJsonStr);
       if (!isPointJson) { // 验证失败
         return res.send(errorData)
       }
@@ -82,10 +91,10 @@ const postCodeCheck = (req, res) => {
       pointJsonStr = getClickData(pointJsonStr);
       if (Array.isArray(pointJsonStr)) {
         pointJsonStr.forEach((item, index) => {
-          if (!isInterior(item.x, repDataClick.num[index].x)) {
+          if (!isInterior(item.x, dataObj.num[index].x)) {
             isPointJson = false;
           }
-          if (!isInterior(item.y, repDataClick.num[index].y)) {
+          if (!isInterior(item.y, dataObj.num[index].y)) {
             isPointJson = false;
           }
         })
