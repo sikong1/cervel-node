@@ -2,12 +2,13 @@
  * @Author: sikonggpw 1327325804@qq.com
  * @Date: 2023-07-07 09:45:24
  * @LastEditors: sikonggpw 1327325804@qq.com
- * @LastEditTime: 2023-07-07 14:41:30
+ * @LastEditTime: 2023-07-07 14:59:33
  * @FilePath: \vercel-node-app\modules\user_sign_in.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 const { findDatabase } = require('../lib/mongo');
 const { collectionConfig } = require('../lib/mongo/enum');
+const { formatTime } = require('../utils');
 
 async function register(req, res) {
     // 获取接口参数
@@ -22,7 +23,9 @@ async function register(req, res) {
     }
 
     // 插入数据
-    apos = await collection.insertOne({ username, password, phone });
+    const time = new Date().getTime();
+    const updateTime = formatTime(time, 'yyyy-MM-dd HH:mm:ss');
+    apos = await collection.insertOne({ username, password, phone, updateTime });
     console.log(apos, 'aposaposapos');
     if (!apos.acknowledged) {
         res.send({ status: 400, msg: '注册失败' });
