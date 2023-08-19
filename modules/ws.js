@@ -1,11 +1,10 @@
 const { success } = require("../status");
 const { formatTime } = require("../utils");
 
-const currentTime = formatTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss')
 const topData = {
     content: '连接成功，请问有什么可以帮助您的吗？',
     type: 'text',
-    timestamp: currentTime,
+    timestamp: formatTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss'),
     sendType: 0,
     // status:
 }
@@ -38,7 +37,7 @@ const wsRouter = function (ws, req) {
         data.push({
             content: msg,
             type: 'text',
-            timestamp: currentTime,
+            timestamp: formatTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss'),
             sendType: 1 // 1: 客服端 0: 服务端
         })
         ws.send(JSON.stringify({
@@ -50,7 +49,7 @@ const wsRouter = function (ws, req) {
             data.push({
                 content: '这是一条消息',
                 type: 'text',
-                timestamp: currentTime,
+                timestamp: formatTime(new Date().getTime(), 'yyyy-MM-dd HH:mm:ss'),
                 sendType: 0,
                 // status:
             })

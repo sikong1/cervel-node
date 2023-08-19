@@ -9,11 +9,9 @@
 const login = require('./login');
 const user = require('./user');
 const defaultApi = require('./default');
-const chat = require('./chat');
 
 module.exports = [
     ...login,
     ...user,
     ...defaultApi,
-    ...chat
 ]
