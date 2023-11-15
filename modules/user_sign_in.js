@@ -2,7 +2,7 @@
  * @Author: sikonggpw 1327325804@qq.com
  * @Date: 2023-07-07 09:45:24
  * @LastEditors: sikonggpw 1327325804@qq.com
- * @LastEditTime: 2023-07-07 16:01:19
+ * @LastEditTime: 2023-11-15 09:55:07
  * @FilePath: \vercel-node-app\modules\user_sign_in.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -17,9 +17,9 @@ async function register(req, res) {
 
     const collection = await findDatabase({ tableName: collectionConfig.user_sign_in.name }); // 连接数据库
     // 查询username是否存在
-    let apos = await collection.find({ phone: phone }).toArray();
+    let apos = await collection.find({ username: username }).toArray();
     if (apos.length !== 0) {
-        res.send({ status: 400, msg: '手机号已存在!' });
+        res.send({ status: 400, msg: '账号已存在!' });
         return;
     }
 
