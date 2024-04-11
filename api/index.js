@@ -9,9 +9,11 @@
 const login = require('./login');
 const user = require('./user');
 const defaultApi = require('./default');
+const file = require('./file');
 
 module.exports = [
     ...login,
     ...user,
     ...defaultApi,
+    ...file,
 ]

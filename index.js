@@ -18,7 +18,6 @@ var wsRouter = require('./modules/ws');
 const app = express();
 const expressWs = require("express-ws")
 expressWs(app)
-console.log('api', api);
 app.ws('/test', wsRouter);
 
 // 解决获取不到post请求的body
@@ -39,7 +38,6 @@ app.use(jwt({
 }).unless({
   path: isTokenArr
 }));
-console.log(isTokenArr,'isTokenArr')
 // app.use('/wss', wsRouter);
 
 // 解决跨域
