@@ -38,5 +38,47 @@ module.exports = [
     handler: (req, res) => {
       res.send("contact Page Route")
     }
+  },
+  {
+    path: "/getData",
+    method: "get",
+    isWhiteList: true,
+    handler: (req, res) => {
+      res.send({
+        code: 200,
+        msg: "success",
+        data: [
+          {
+            image:
+              "https://front-end-huawei-cdn.devops.cndinfo.com/npm/@cndinfo/cube-design-icons/0.3.0/png/mall-confirm-colored.png",
+            label: "待确认"
+          },
+          {
+            image:
+              "https://front-end-huawei-cdn.devops.cndinfo.com/npm/@cndinfo/cube-design-icons/0.3.0/png/mall-payment-colored.png",
+            label: "待付款",
+            badge: {
+              text: 3,
+              bgColor: "#DD1022"
+            }
+          },
+          {
+            image:
+              "https://front-end-huawei-cdn.devops.cndinfo.com/npm/@cndinfo/cube-design-icons/0.3.0/png/mall-shipping-colored.png",
+            label: "待发货"
+          },
+          {
+            image:
+              "https://front-end-huawei-cdn.devops.cndinfo.com/npm/@cndinfo/cube-design-icons/0.3.0/png/mall-delivery-colored.png",
+            label: "待收货"
+          },
+          {
+            image:
+              "https://front-end-huawei-cdn.devops.cndinfo.com/npm/@cndinfo/cube-design-icons/0.3.0/png/mall-order-colored.png",
+            label: "订单"
+          }
+        ]
+      })
+    }
   }
 ]
