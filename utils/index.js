@@ -8,34 +8,37 @@
  */
 // 时间格式化，时间戳转换为时间
 const formatTime = (time, format) => {
-    const t = new Date(time);
-    const tf = (i) => {
-        return (i < 10 ? "0" : "") + i;
-    };
-    return format.replace(/yyyy|MM|dd|HH|mm|ss/g, (a) => {
-        switch (a) {
-            case "yyyy":
-                return tf(t.getFullYear());
-                break;
-            case "MM":
-                return tf(t.getMonth() + 1);
-                break;
-            case "mm":
-                return tf(t.getMinutes());
-                break;
-            case "dd":
-                return tf(t.getDate());
-                break;
-            case "HH":
-                return tf(t.getHours());
-                break;
-            case "ss":
-                return tf(t.getSeconds());
-                break;
-        }
-    });
+  const t = new Date(time)
+  const tf = (i) => {
+    return (i < 10 ? "0" : "") + i
+  }
+  return format.replace(/yyyy|MM|dd|HH|mm|ss/g, (a) => {
+    switch (a) {
+      case "yyyy":
+        return tf(t.getFullYear())
+      case "MM":
+        return tf(t.getMonth() + 1)
+      case "mm":
+        return tf(t.getMinutes())
+      case "dd":
+        return tf(t.getDate())
+      case "HH":
+        return tf(t.getHours())
+      case "ss":
+        return tf(t.getSeconds())
+    }
+  })
+}
+
+const delPassWord = (data, key = "password") => {
+  if (!Array.isArray(data)) return
+  return data.map(item => ({
+    ...item,
+    [key]: ''
+  }))
 }
 
 module.exports = {
-    formatTime
+  formatTime,
+  delPassWord
 }
