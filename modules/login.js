@@ -11,6 +11,7 @@ const keyObj = require('../key');
 const { findDatabase } = require('../lib/mongo');
 const { collectionConfig } = require('../lib/mongo/enum');
 const { aesDecrypt } = require('../utils/crypot');
+const { delPassWord } = require('../utils');
 
 const login = async (req, res) => {
   const { username, password, phone, key } = req.body;
@@ -35,16 +36,14 @@ const login = async (req, res) => {
   // 生成token
   console.log('tokentoken');
   const token = jwt.sign({ username }, keyObj.myKey, { expiresIn: '24h' });
+  const data = delPassWord(apos)
+
   res.send({
-    message: 'Login successful',
+    message: "Login successful",
     status: 200,
-    token: 'Bearer ' + token,
-    user: {
-      username: apos[0].username,
-      phone: apos[0].phone,
-      updateTime: apos[0].updateTime
-    }
-  });
+    token: "Bearer " + token,
+    userInfo: data[0]
+  })
 };
 
 module.exports = login;

@@ -9,6 +9,7 @@
 const { findDatabase } = require("../lib/mongo")
 const { collectionConfig } = require("../lib/mongo/enum")
 const { delPassWord } = require("../utils")
+const { statusCode } = require("../utils/api-utils")
 
 async function getUserInfo(req, res) {
   const { username, password, phone, key } = req.query
@@ -18,14 +19,19 @@ async function getUserInfo(req, res) {
     tableName: collectionConfig.user_sign_in.name
   }) // 连接数据库
   let apos = await collection.find({ username: username }).toArray() // 查询所有数据
+  if (apos.length !== 1)  {
+    return res.send({
+      status: statusCode.errorStatus,
+      msg: "用户不存在或者服务端异常"
+    })
+  }
   //   去除密码
   const data = delPassWord(apos)
   console.log(data, "data")
 
   res.send({
-    status: 200,
-    headers: { "content-type": "application/json" },
-    body: { data }
+    status: statusCode.successStatus,
+    data: data[0]
   })
 }
 
