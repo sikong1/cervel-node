@@ -14,11 +14,11 @@ const { aesDecrypt } = require('../utils/crypot');
 const { delPassWord } = require('../utils');
 
 const login = async (req, res) => {
-  const { username, password, phone, key } = req.body;
+  const { username, password, key } = req.body;
   // 从数据库中表
   const collection = await findDatabase({ tableName: collectionConfig.user_sign_in.name });
   // 查询name为gpw的password
-  let apos = await collection.find({ username: username }).toArray();
+  let apos = await collection.find({ username }).toArray();
   console.log('apos',apos);
   // 如果没有查询到
   if (apos.length === 0) {
